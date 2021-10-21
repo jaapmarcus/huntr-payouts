@@ -77,6 +77,11 @@ function sortFunction(a, b) {
 
 var cwe = '';
 function buildTable(data, reward = 0){
+  var formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+  
   cwe = data  
   data.sort(sortFunction);
   rows = document.getElementById('rows');
@@ -84,7 +89,7 @@ function buildTable(data, reward = 0){
   for (i = 0; i < data.length; i++){
       item = data[i];
       tr = document.createElement('tr');
-      tr.innerHTML="<td>"+item.number+"</td><td>"+item.title+"</td><td>"+item.description+"</td><td>" + item.pricing_multiplier +"</td><td>" + fractionToDollars(item.pricing_multiplier)+"</td><td>"+reward * item.pricing_multiplier +"</td><td>"+ reward * item.pricing_multiplier * 0.25+"</td>";
+      tr.innerHTML="<td>"+item.number+"</td><td>"+item.title+"</td><td>"+item.description+"</td><td>" + item.pricing_multiplier +"</td><td>" + fractionToDollars(item.pricing_multiplier)+"</td><td>"+formatter.format(reward * item.pricing_multiplier) +"</td><td>"+ formatter.format(reward * item.pricing_multiplier * 0.25)+"</td>";
       rows.appendChild(tr);
   }
 }
